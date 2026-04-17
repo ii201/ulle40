@@ -1,0 +1,1141 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Ulle · 40 — Ein Hoch auf die Freundschaft</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;0,9..144,800;0,9..144,900;1,9..144,400;1,9..144,600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --ink: #0f0d0a;
+    --ink-soft: #1a1612;
+    --paper: #f4ece0;
+    --paper-warm: #ebe0cf;
+    --cream: #faf5ec;
+    --gold: #c9a96a;
+    --gold-deep: #9c7a3d;
+    --gold-bright: #e8c478;
+    --green-accent: #5d7a4a;
+    --red-accent: #a14a3a;
+    --shadow: 0 30px 80px -20px rgba(0,0,0,.55);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--ink);
+    color: var(--paper);
+    font-family: 'Inter', sans-serif;
+    font-weight: 300;
+    line-height: 1.6;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Film-grain texture overlay */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 100;
+    opacity: .08;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' /%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    mix-blend-mode: overlay;
+  }
+
+  .display { font-family: 'Fraunces', serif; font-weight: 300; letter-spacing: -0.02em; }
+  .italic { font-style: italic; }
+
+  /* ============ HERO ============ */
+  .hero {
+    min-height: 100vh;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 4rem 6vw;
+    background:
+      radial-gradient(ellipse at 30% 20%, rgba(201,169,106,.18), transparent 60%),
+      radial-gradient(ellipse at 80% 80%, rgba(161,74,58,.12), transparent 50%),
+      var(--ink);
+    overflow: hidden;
+  }
+
+  .hero-marquee {
+    position: absolute;
+    top: 2.5rem;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 3rem;
+    font-size: .75rem;
+    letter-spacing: .3em;
+    text-transform: uppercase;
+    color: var(--gold);
+    opacity: .7;
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 1400px;
+    margin: 0 auto;
+    width: 100%;
+  }
+
+  .kicker {
+    display: inline-flex;
+    align-items: center;
+    gap: 1rem;
+    font-size: .8rem;
+    letter-spacing: .4em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 2rem;
+    opacity: 0;
+    animation: fadeUp 1s .3s forwards;
+  }
+
+  .kicker::before, .kicker::after {
+    content: '';
+    width: 40px;
+    height: 1px;
+    background: var(--gold);
+  }
+
+  .hero h1 {
+    font-family: 'Fraunces', serif;
+    font-weight: 300;
+    font-size: clamp(3.5rem, 11vw, 11rem);
+    line-height: .95;
+    letter-spacing: -0.035em;
+    color: var(--paper);
+  }
+
+  .hero h1 .line {
+    display: block;
+    overflow: hidden;
+  }
+
+  .hero h1 .line span {
+    display: inline-block;
+    transform: translateY(110%);
+    animation: slideUp 1.2s cubic-bezier(.2,.8,.2,1) forwards;
+  }
+
+  .hero h1 .line:nth-child(1) span { animation-delay: .5s; }
+  .hero h1 .line:nth-child(2) span { animation-delay: .75s; font-style: italic; color: var(--gold-bright); }
+  .hero h1 .line:nth-child(3) span { animation-delay: 1s; }
+
+  .hero-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-top: 4rem;
+    flex-wrap: wrap;
+    gap: 2rem;
+    opacity: 0;
+    animation: fadeUp 1.2s 1.5s forwards;
+  }
+
+  .hero-meta .left {
+    max-width: 420px;
+    font-size: 1.05rem;
+    line-height: 1.7;
+    color: rgba(244,236,224,.75);
+  }
+
+  .hero-meta .right {
+    text-align: right;
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 1.1rem;
+    color: var(--gold);
+  }
+
+  .hero-meta .right strong {
+    display: block;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 2.5rem;
+    color: var(--paper);
+    letter-spacing: -0.02em;
+  }
+
+  .scroll-hint {
+    position: absolute;
+    bottom: 2.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: .7rem;
+    letter-spacing: .4em;
+    text-transform: uppercase;
+    color: var(--gold);
+    opacity: 0;
+    animation: fadeUp 1s 2s forwards, bounce 2s 3s infinite;
+  }
+
+  .scroll-hint::after {
+    content: '';
+    display: block;
+    width: 1px;
+    height: 40px;
+    background: var(--gold);
+    margin: .8rem auto 0;
+  }
+
+  /* ============ PROLOG: DB POSTER ============ */
+  .prolog {
+    padding: 10rem 6vw;
+    background: var(--ink);
+    position: relative;
+  }
+
+  .prolog-grid {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 6rem;
+    align-items: center;
+  }
+
+  .prolog-image {
+    position: relative;
+    aspect-ratio: 2/3;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    transform: rotate(-2deg);
+    transition: transform .8s ease;
+  }
+
+  .prolog-image:hover { transform: rotate(0deg) scale(1.02); }
+
+  .prolog-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: contrast(1.02) saturate(.95);
+  }
+
+  .prolog-image::before {
+    content: 'EXHIBIT A';
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    background: var(--gold);
+    color: var(--ink);
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: .7rem;
+    letter-spacing: .3em;
+    padding: .4rem .8rem;
+    z-index: 2;
+  }
+
+  .prolog-text .section-number {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 1rem;
+    color: var(--gold);
+    margin-bottom: 1.5rem;
+    letter-spacing: .1em;
+  }
+
+  .prolog-text h2 {
+    font-family: 'Fraunces', serif;
+    font-weight: 300;
+    font-size: clamp(2.2rem, 4.5vw, 4rem);
+    line-height: 1.05;
+    letter-spacing: -0.025em;
+    color: var(--paper);
+    margin-bottom: 2rem;
+  }
+
+  .prolog-text h2 em {
+    color: var(--gold-bright);
+    font-weight: 400;
+  }
+
+  .prolog-text p {
+    font-size: 1.15rem;
+    line-height: 1.8;
+    color: rgba(244,236,224,.8);
+    margin-bottom: 1.5rem;
+  }
+
+  .prolog-text p:first-letter {
+    font-family: 'Fraunces', serif;
+    font-size: 3.5rem;
+    float: left;
+    line-height: .85;
+    margin: .2rem .6rem 0 0;
+    color: var(--gold-bright);
+    font-weight: 400;
+  }
+
+  /* ============ QUOTE BANNER ============ */
+  .quote-banner {
+    padding: 8rem 6vw;
+    background: var(--paper);
+    color: var(--ink);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .quote-banner::before, .quote-banner::after {
+    content: '';
+    position: absolute;
+    width: 60%;
+    height: 1px;
+    background: var(--gold-deep);
+    opacity: .3;
+  }
+
+  .quote-banner::before { top: 3rem; left: 20%; }
+  .quote-banner::after { bottom: 3rem; left: 20%; }
+
+  .quote-banner blockquote {
+    max-width: 900px;
+    margin: 0 auto;
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-weight: 300;
+    font-size: clamp(1.8rem, 3.8vw, 3.2rem);
+    line-height: 1.25;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+  }
+
+  .quote-banner blockquote .big-quote {
+    display: block;
+    font-size: 6rem;
+    font-style: normal;
+    color: var(--gold-deep);
+    line-height: .5;
+    margin-bottom: 1rem;
+  }
+
+  .quote-banner cite {
+    display: block;
+    margin-top: 2rem;
+    font-family: 'Inter', sans-serif;
+    font-style: normal;
+    font-size: .8rem;
+    letter-spacing: .4em;
+    text-transform: uppercase;
+    color: var(--gold-deep);
+  }
+
+  /* ============ GALLERY ============ */
+  .gallery-section {
+    padding: 10rem 0 6rem;
+    background: var(--ink);
+  }
+
+  .gallery-intro {
+    max-width: 900px;
+    margin: 0 auto 6rem;
+    text-align: center;
+    padding: 0 6vw;
+  }
+
+  .gallery-intro .section-number {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    color: var(--gold);
+    letter-spacing: .15em;
+    font-size: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .gallery-intro h2 {
+    font-family: 'Fraunces', serif;
+    font-weight: 300;
+    font-size: clamp(2.5rem, 5vw, 4.5rem);
+    line-height: 1;
+    letter-spacing: -0.03em;
+    margin-bottom: 2rem;
+  }
+
+  .gallery-intro h2 em { color: var(--gold-bright); }
+
+  .gallery-intro p {
+    font-size: 1.1rem;
+    color: rgba(244,236,224,.7);
+    max-width: 640px;
+    margin: 0 auto;
+  }
+
+  .moment {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+    max-width: 1400px;
+    margin: 0 auto 8rem;
+    padding: 0 6vw;
+  }
+
+  .moment:nth-child(even) { direction: rtl; }
+  .moment:nth-child(even) > * { direction: ltr; }
+
+  .moment-image {
+    position: relative;
+    overflow: hidden;
+    aspect-ratio: 4/3;
+    box-shadow: var(--shadow);
+  }
+
+  .moment-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 1.2s cubic-bezier(.2,.8,.2,1);
+  }
+
+  .moment-image:hover img { transform: scale(1.05); }
+
+  .moment-image.portrait { aspect-ratio: 3/4; }
+  .moment-image.tall { aspect-ratio: 2/3; }
+
+  .moment-image .frame-label {
+    position: absolute;
+    bottom: 1rem;
+    left: 1rem;
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: .9rem;
+    color: var(--gold-bright);
+    background: rgba(15,13,10,.7);
+    padding: .4rem .8rem;
+    backdrop-filter: blur(10px);
+  }
+
+  .moment-text .chapter-num {
+    font-family: 'Fraunces', serif;
+    font-size: 5rem;
+    font-weight: 200;
+    line-height: 1;
+    color: var(--gold);
+    opacity: .4;
+    margin-bottom: 1rem;
+    letter-spacing: -0.05em;
+  }
+
+  .moment-text .chapter-title {
+    font-family: 'Fraunces', serif;
+    font-weight: 400;
+    font-style: italic;
+    font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+    line-height: 1.15;
+    color: var(--paper);
+    margin-bottom: 1.5rem;
+    letter-spacing: -0.02em;
+  }
+
+  .moment-text .chapter-title em { color: var(--gold-bright); font-style: normal; }
+
+  .moment-text p {
+    font-size: 1.05rem;
+    line-height: 1.8;
+    color: rgba(244,236,224,.75);
+  }
+
+  .moment-text .tag {
+    display: inline-block;
+    font-size: .7rem;
+    letter-spacing: .35em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1rem;
+    padding-bottom: .5rem;
+    border-bottom: 1px solid var(--gold-deep);
+  }
+
+  /* ============ TIMELINE ============ */
+  .timeline-section {
+    padding: 10rem 6vw;
+    background: linear-gradient(180deg, var(--ink) 0%, #15110c 100%);
+    text-align: center;
+    position: relative;
+  }
+
+  .timeline-section h2 {
+    font-family: 'Fraunces', serif;
+    font-weight: 300;
+    font-size: clamp(3rem, 9vw, 9rem);
+    line-height: .9;
+    letter-spacing: -0.04em;
+    margin-bottom: 3rem;
+  }
+
+  .timeline-section h2 em {
+    color: var(--gold-bright);
+    display: block;
+    font-size: .5em;
+    margin-top: 1rem;
+  }
+
+  .stats {
+    display: flex;
+    justify-content: center;
+    gap: 5rem;
+    margin-top: 5rem;
+    flex-wrap: wrap;
+  }
+
+  .stat {
+    text-align: center;
+  }
+
+  .stat .num {
+    font-family: 'Fraunces', serif;
+    font-weight: 300;
+    font-size: 4rem;
+    color: var(--gold-bright);
+    line-height: 1;
+    letter-spacing: -0.03em;
+  }
+
+  .stat .label {
+    display: block;
+    margin-top: .5rem;
+    font-size: .75rem;
+    letter-spacing: .3em;
+    text-transform: uppercase;
+    color: rgba(244,236,224,.6);
+  }
+
+  /* ============ GUTSCHEIN ============ */
+  .gutschein-section {
+    padding: 10rem 6vw;
+    background:
+      radial-gradient(ellipse at center, rgba(201,169,106,.1), transparent 60%),
+      #15110c;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .gutschein-intro {
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto 5rem;
+  }
+
+  .gutschein-intro .ribbon {
+    display: inline-block;
+    font-size: .75rem;
+    letter-spacing: .5em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 2rem;
+    padding: .5rem 1.5rem;
+    border: 1px solid var(--gold-deep);
+  }
+
+  .gutschein-intro h2 {
+    font-family: 'Fraunces', serif;
+    font-weight: 300;
+    font-size: clamp(2.5rem, 5.5vw, 5rem);
+    line-height: 1;
+    letter-spacing: -0.03em;
+    margin-bottom: 2rem;
+  }
+
+  .gutschein-intro h2 em { color: var(--gold-bright); font-style: italic; }
+
+  .gutschein-intro p {
+    font-size: 1.1rem;
+    color: rgba(244,236,224,.75);
+    line-height: 1.7;
+  }
+
+  .gutschein-card {
+    max-width: 960px;
+    margin: 0 auto;
+    background: var(--cream);
+    color: var(--ink);
+    padding: 3.5rem clamp(1.5rem, 5vw, 4.5rem);
+    position: relative;
+    box-shadow:
+      0 50px 100px -20px rgba(0,0,0,.7),
+      0 0 0 1px rgba(201,169,106,.2),
+      inset 0 0 0 8px var(--cream),
+      inset 0 0 0 9px var(--gold-deep),
+      inset 0 0 0 14px var(--cream),
+      inset 0 0 0 15px rgba(201,169,106,.4);
+    text-align: center;
+  }
+
+  .gutschein-card::before, .gutschein-card::after {
+    content: '';
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    border: 2px solid var(--gold-deep);
+  }
+
+  .gutschein-card::before {
+    top: 25px; left: 25px;
+    border-right: none;
+    border-bottom: none;
+  }
+
+  .gutschein-card::after {
+    bottom: 25px; right: 25px;
+    border-left: none;
+    border-top: none;
+  }
+
+  .gc-header {
+    font-size: .75rem;
+    letter-spacing: .5em;
+    text-transform: uppercase;
+    color: var(--gold-deep);
+    margin-bottom: 1.5rem;
+  }
+
+  .gc-recipient {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 1.8rem;
+    color: var(--ink);
+    margin-bottom: .3rem;
+  }
+
+  .gc-occasion {
+    font-size: .85rem;
+    color: var(--gold-deep);
+    margin-bottom: 2.5rem;
+  }
+
+  .gc-divider {
+    width: 80%;
+    height: 1px;
+    background: var(--gold-deep);
+    opacity: .3;
+    margin: 2rem auto;
+    position: relative;
+  }
+
+  .gc-divider::before {
+    content: '◆';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: var(--cream);
+    padding: 0 1rem;
+    color: var(--gold-deep);
+    font-size: .7rem;
+  }
+
+  .gc-title {
+    font-family: 'Fraunces', serif;
+    font-weight: 800;
+    font-size: clamp(3rem, 8vw, 6rem);
+    line-height: 1;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+  }
+
+  .gc-subtitle {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: clamp(1.2rem, 2.5vw, 1.8rem);
+    color: var(--gold-deep);
+    margin-bottom: 3rem;
+  }
+
+  .gc-badge {
+    width: 110px;
+    height: 110px;
+    border-radius: 50%;
+    background: var(--ink);
+    color: var(--gold-bright);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    margin: 0 auto 3rem;
+    font-family: 'Fraunces', serif;
+    border: 2px solid var(--gold-deep);
+    box-shadow: 0 10px 30px rgba(0,0,0,.3);
+  }
+
+  .gc-badge .forty {
+    font-size: 2.8rem;
+    font-weight: 600;
+    line-height: 1;
+    letter-spacing: -0.03em;
+  }
+
+  .gc-badge .jahre {
+    font-family: 'Inter', sans-serif;
+    font-size: .55rem;
+    letter-spacing: .3em;
+    margin-top: .2rem;
+  }
+
+  .gc-message {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 1.1rem;
+    color: var(--ink);
+    max-width: 600px;
+    margin: 0 auto 3rem;
+    line-height: 1.7;
+    padding: 1.5rem 0;
+    border-top: 1px solid rgba(156,122,61,.2);
+    border-bottom: 1px solid rgba(156,122,61,.2);
+  }
+
+  .gc-terms {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(156,122,61,.2);
+  }
+
+  .gc-term .gc-term-label {
+    font-size: .7rem;
+    letter-spacing: .3em;
+    text-transform: uppercase;
+    color: var(--gold-deep);
+    margin-bottom: .5rem;
+    font-weight: 600;
+  }
+
+  .gc-term .gc-term-value {
+    font-family: 'Fraunces', serif;
+    font-size: 1rem;
+    color: var(--ink);
+  }
+
+  .gc-footer {
+    margin-top: 2.5rem;
+    font-size: .7rem;
+    letter-spacing: .2em;
+    color: var(--gold-deep);
+    opacity: .7;
+  }
+
+  /* Rules list inside Gutschein */
+  .gc-rules {
+    max-width: 600px;
+    margin: 0 auto 2rem;
+    text-align: left;
+    font-family: 'Fraunces', serif;
+  }
+
+  .gc-rules li {
+    padding: .7rem 0;
+    border-bottom: 1px dashed rgba(156,122,61,.25);
+    display: flex;
+    gap: 1rem;
+    align-items: baseline;
+    list-style: none;
+    font-size: 1rem;
+    color: var(--ink-soft);
+  }
+
+  .gc-rules li::before {
+    content: '✦';
+    color: var(--gold-deep);
+    font-size: .8rem;
+  }
+
+  .gc-rules li:last-child { border-bottom: none; }
+
+  /* ============ SIGN OFF ============ */
+  .signoff {
+    padding: 10rem 6vw 6rem;
+    background: var(--ink);
+    text-align: center;
+  }
+
+  .signoff h2 {
+    font-family: 'Fraunces', serif;
+    font-weight: 300;
+    font-style: italic;
+    font-size: clamp(2rem, 4.5vw, 3.5rem);
+    line-height: 1.2;
+    max-width: 900px;
+    margin: 0 auto 3rem;
+    color: var(--paper);
+  }
+
+  .signoff h2 em { color: var(--gold-bright); font-style: normal; font-weight: 400; }
+
+  .signoff .sig {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 1.3rem;
+    color: var(--gold);
+    margin-top: 3rem;
+  }
+
+  .signoff .sig::before {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 1px;
+    background: var(--gold);
+    margin: 0 auto 1.5rem;
+  }
+
+  footer {
+    padding: 2rem 6vw;
+    background: #0a0806;
+    text-align: center;
+    font-size: .7rem;
+    letter-spacing: .3em;
+    text-transform: uppercase;
+    color: var(--gold-deep);
+    opacity: .6;
+  }
+
+  /* ============ ANIMATIONS ============ */
+  @keyframes slideUp {
+    to { transform: translateY(0); }
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes bounce {
+    0%, 100% { transform: translateX(-50%) translateY(0); }
+    50% { transform: translateX(-50%) translateY(8px); }
+  }
+
+  /* Reveal on scroll */
+  .reveal {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 1s ease, transform 1s cubic-bezier(.2,.8,.2,1);
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ============ RESPONSIVE ============ */
+  @media (max-width: 820px) {
+    .hero-marquee { padding: 0 1.5rem; font-size: .65rem; }
+    .prolog { padding: 6rem 6vw; }
+    .prolog-grid { grid-template-columns: 1fr; gap: 3rem; }
+    .prolog-image { max-width: 380px; margin: 0 auto; }
+    .moment { grid-template-columns: 1fr; gap: 2.5rem; margin-bottom: 5rem; }
+    .moment:nth-child(even) { direction: ltr; }
+    .moment-image.portrait, .moment-image.tall { aspect-ratio: 4/3; }
+    .gallery-section { padding: 6rem 0 4rem; }
+    .gallery-intro { margin-bottom: 4rem; }
+    .stats { gap: 2.5rem; }
+    .stat .num { font-size: 2.8rem; }
+    .gutschein-card { padding: 2rem 1.2rem; }
+    .gc-terms { grid-template-columns: 1fr; gap: .8rem; }
+    .quote-banner { padding: 5rem 6vw; }
+    .quote-banner blockquote .big-quote { font-size: 3.5rem; }
+    .timeline-section, .gutschein-section, .signoff { padding: 6rem 6vw; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ============ HERO ============ -->
+<section class="hero">
+  <div class="hero-marquee">
+    <span>Ausgabe Nº 40</span>
+    <span>Eine Hommage</span>
+    <span>Berlin · 2026</span>
+  </div>
+
+  <div class="hero-content">
+    <div class="kicker">Für Ulle · Zum Vierzigsten</div>
+    <h1>
+      <span class="line"><span>Vierzig Jahre</span></span>
+      <span class="line"><span>unverschämt</span></span>
+      <span class="line"><span>guter Laune.</span></span>
+    </h1>
+    <div class="hero-meta">
+      <div class="left">
+        Eine kleine Sammlung von Beweisstücken, Anekdoten und Zärtlichkeiten — zusammengetragen für einen Mann, der seit Jahren beweist, dass man das Älterwerden nicht ernst nehmen muss, solange man die Freundschaft ernst nimmt.
+      </div>
+      <div class="right">
+        <em>Sonntag,</em>
+        <strong>19. April</strong>
+        <em>2026</em>
+      </div>
+    </div>
+  </div>
+
+  <div class="scroll-hint">Scrollen</div>
+</section>
+
+<!-- ============ PROLOG: DB POSTER ============ -->
+<section class="prolog">
+  <div class="prolog-grid">
+    <div class="prolog-image reveal">
+      <img src="images/01-db-poster.jpeg" alt="Deutsche Bank Plakat mit jungem Ulle" />
+    </div>
+    <div class="prolog-text reveal">
+      <div class="section-number">— Prolog —</div>
+      <h2>Bevor wir anfangen, ein kurzer <em>Blick zurück</em>.</h2>
+      <p>Irgendwo in den frühen Jahren klebte dein Gesicht an jeder zweiten Wand: Fixie-Rad, grüne Strickjacke, <em>„Leistung aus Leidenschaft"</em>. 9.000 Menschen arbeiteten bei der Deutschen Bank — und Martin Rauchut war einer von ihnen.</p>
+      <p>Was damals keiner ahnte: Die wirklich bemerkenswerten Jobs sollten erst noch kommen. Ehemann. Vater von zwei Kindern. Und unser Freund. In allen drei Disziplinen, Ulle, bist du konkurrenzlos gut.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ QUOTE ============ -->
+<section class="quote-banner">
+  <blockquote>
+    <span class="big-quote">"</span>
+    Freundschaft ist das Schönste, was man verschenken kann.
+  </blockquote>
+  <cite>— und heute schenken wir dir einen ganzen Tag davon</cite>
+</section>
+
+<!-- ============ GALLERY ============ -->
+<section class="gallery-section">
+  <div class="gallery-intro reveal">
+    <div class="section-number">— Kapitel I bis VIII —</div>
+    <h2>Momente, die <em>wir</em> nicht vergessen.</h2>
+    <p>Eine unvollständige Auswahl. Der Rest passt nicht auf eine Website.</p>
+  </div>
+
+  <!-- Moment 1: Tongue out -->
+  <article class="moment reveal">
+    <div class="moment-image">
+      <img src="images/08-vodka.jpeg" alt="Ulle mit Kumpel, Zunge raus" />
+      <span class="frame-label">Nº 01 · Der Klassiker</span>
+    </div>
+    <div class="moment-text">
+      <span class="tag">Kapitel I</span>
+      <div class="chapter-num">01</div>
+      <h3 class="chapter-title">Zwei Männer, eine <em>Haltung</em>.</h3>
+      <p>Es gibt Fotos, die braucht man nicht zu erklären. Wer dabei war, weiß Bescheid. Wer nicht dabei war, ahnt zumindest, dass es ein guter Abend gewesen sein muss. Ulle im klassischen Modus: Augen zu, Zunge raus, Daumen hoch. Wenn das keine Lebensphilosophie ist, dann weiß ich auch nicht.</p>
+    </div>
+  </article>
+
+  <!-- Moment 2: BMW -->
+  <article class="moment reveal">
+    <div class="moment-image">
+      <img src="images/07-dance.jpeg" alt="Ulle am Bordstein mit Bier" />
+      <span class="frame-label">Nº 02 · Die Pause</span>
+    </div>
+    <div class="moment-text">
+      <span class="tag">Kapitel II</span>
+      <div class="chapter-num">02</div>
+      <h3 class="chapter-title">Wo andere nur <em>parken</em>, machst du Ferien.</h3>
+      <p>Bordsteinkante, Bierflasche, Basecap — und diese Ruhe, die nur Menschen ausstrahlen, die genau wissen, was gerade zählt: jetzt, hier, ein Moment Pause unter deutschen Kastanien. Der BMW im Hintergrund war übrigens ein Mietwagen. Drei Tage lang. Drei Tage, in denen du der Mann warst, der du auf diesem Foto bist — und dieses Foto ist der Beweis, dass es manchmal gar kein eigenes Auto braucht, um ein ganz eigenes Leben zu leben.</p>
+    </div>
+  </article>
+
+  <!-- Moment 3: Wizard hat -->
+  <article class="moment reveal">
+    <div class="moment-image portrait">
+      <img src="images/06-beer.jpeg" alt="Ulle mit Zauberhut in einer Altstadtgasse" />
+      <span class="frame-label">Nº 03 · Der Zauberer</span>
+    </div>
+    <div class="moment-text">
+      <span class="tag">Kapitel III</span>
+      <div class="chapter-num">03</div>
+      <h3 class="chapter-title">Manche Menschen tragen Hüte. Bei dir tragen <em>Hüte dich</em>.</h3>
+      <p>Es gibt kein Kostüm auf diesem Planeten, das du nicht mit einer entwaffnenden Selbstverständlichkeit trägst. Du stehst da, grinst in die Kamera, und plötzlich ist der grüne Spitzhut das eleganteste Accessoire der Stadt. Dieses Talent kann man nicht lernen. Man wird damit geboren — oder eben Ulle.</p>
+    </div>
+  </article>
+
+  <!-- Moment 4: Kiss -->
+  <article class="moment reveal">
+    <div class="moment-image">
+      <img src="images/04-hat.jpeg" alt="Ulle bekommt einen Kuss auf einer Feier" />
+      <span class="frame-label">Nº 04 · Gern gesehen</span>
+    </div>
+    <div class="moment-text">
+      <span class="tag">Kapitel IV</span>
+      <div class="chapter-num">04</div>
+      <h3 class="chapter-title">Einer von diesen <em>unverschämt</em> herzlichen Momenten.</h3>
+      <p>Fliege, geschlossene Augen, Bierchen in der Hand — und ein Küsschen auf die Wange von einer guten Freundin. Genau das ist dein Element: Du bist der Typ, den man einfach gern hat. Punkt. Männer, Frauen, Hunde, entfernte Bekannte, Menschen, die du seit zehn Minuten kennst — alle. Freundschaft in deinem Radius ist kein Vertrag, sondern ein Reflex. Und das ist vielleicht dein größtes Talent von allen.</p>
+    </div>
+  </article>
+
+  <!-- Moment 5: Beer -->
+  <article class="moment reveal">
+    <div class="moment-image tall">
+      <img src="images/03-bmw.jpeg" alt="Ulle prostet mit einem großen Bierkrug" />
+      <span class="frame-label">Nº 05 · Corpus Delicti</span>
+    </div>
+    <div class="moment-text">
+      <span class="tag">Kapitel V</span>
+      <div class="chapter-num">05</div>
+      <h3 class="chapter-title">Ein Glas, ein Beweis, ein <em>Lebensgefühl</em>.</h3>
+      <p>Was du da hältst, sieht aus wie ein helles Bier. Ist aber keines. Es ist ein Zeugnis. Ein flüssiges Kapitel deiner Biografie. Denn wir wissen alle: Wo Ulle ist, da ist auch ein gewisser Bewässerungsbedarf — unabhängig von Ort, Zeit oder gesellschaftlicher Angemessenheit. Berliner Hauseingänge, fremde Hinterhöfe, einmal beinahe ein Blumentopf in der Hotellobby. Dieses Glas ist die höfliche, gefasste Version davon. Prost, Ulle. Auf deine Blase — möge sie dich noch vierzig Jahre treu begleiten.</p>
+    </div>
+  </article>
+
+  <!-- Moment 6: Dance -->
+  <article class="moment reveal">
+    <div class="moment-image tall">
+      <img src="images/02-tongue.jpeg" alt="Ulle tanzt mit Dose in der Hand" />
+      <span class="frame-label">Nº 06 · Madrid bei Nacht</span>
+    </div>
+    <div class="moment-text">
+      <span class="tag">Kapitel VI</span>
+      <div class="chapter-num">06</div>
+      <h3 class="chapter-title">Madrid, irgendwann nach <em>Mitternacht</em>.</h3>
+      <p>Rosa Hemd, Dose in der Hand, ein Arm ausgestreckt, als würdest du die Schwerkraft gleich selbst neu verhandeln. Die Spanier wissen seit dieser Nacht, wie ein deutscher Mann tanzt, wenn ihn keiner bremst. Und wir erinnern uns gut an die Frage aus deinem alten DB-Plakat: <em>„Tanzflächenstürmer oder Sofa-Verteidiger?"</em> — die Antwort hat sich auch in Madrid nicht geändert.</p>
+    </div>
+  </article>
+
+  <!-- Moment 7: Vodka -->
+  <article class="moment reveal">
+    <div class="moment-image tall">
+      <img src="images/05-kiss.jpeg" alt="Ulle mit Freund und Wodkaflasche" />
+      <span class="frame-label">Nº 07 · Der Diplomat</span>
+    </div>
+    <div class="moment-text">
+      <span class="tag">Kapitel VII</span>
+      <div class="chapter-num">07</div>
+      <h3 class="chapter-title">Internationale <em>Freundschaftspflege</em>.</h3>
+      <p>Wenn Staatsbesuche so aussähen, wäre die Welt ein friedlicherer Ort. Słowacki Premium, zwei Küsschen-Münder, eine Flasche als Zeugin. Wir wissen nicht, wie dieser Abend endete. Wir wissen aber, dass am nächsten Morgen definitiv niemand stolz auf sein Haar war.</p>
+    </div>
+  </article>
+
+</section>
+
+<!-- ============ TIMELINE / STATS ============ -->
+<section class="timeline-section">
+  <div class="reveal">
+    <h2>
+      40
+      <em>Jahre in Zahlen</em>
+    </h2>
+  </div>
+  <div class="stats reveal">
+    <div class="stat">
+      <div class="num">14.610</div>
+      <span class="label">Tage Ulle</span>
+    </div>
+    <div class="stat">
+      <div class="num">∞</div>
+      <span class="label">Gute Abende</span>
+    </div>
+    <div class="stat">
+      <div class="num">1</div>
+      <span class="label">DB-Plakat</span>
+    </div>
+    <div class="stat">
+      <div class="num">0</div>
+      <span class="label">Bereute Momente</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ GUTSCHEIN ============ -->
+<section class="gutschein-section">
+  <div class="gutschein-intro reveal">
+    <span class="ribbon">Das Geschenk</span>
+    <h2>Weil Champagner verfliegt, aber <em>ein guter Tag</em> bleibt.</h2>
+    <p>Wir haben uns lange überlegt, was man einem Menschen schenkt, der schon alles hat — inklusive einer geheimen Modelkarriere bei der Deutschen Bank. Die Antwort liegt, wie so oft, auf der Hand.</p>
+  </div>
+
+  <div class="gutschein-card reveal">
+    <div class="gc-header">Gutschein</div>
+    <div class="gc-recipient">für Ulle</div>
+    <div class="gc-occasion">zum 40. Geburtstag</div>
+
+    <div class="gc-divider"></div>
+
+    <h3 class="gc-title">Boys Day</h3>
+    <p class="gc-subtitle">Ein ganzer Tag — deine Regeln.</p>
+
+    <div class="gc-badge">
+      <span class="forty">40</span>
+      <span class="jahre">Jahre</span>
+    </div>
+
+    <ul class="gc-rules">
+      <li>Du bestimmst die Uhrzeit. Auch 10 Uhr morgens ist legal.</li>
+      <li>Du bestimmst den Ort. Berlin, Brandenburg oder Baltikum — Hauptsache, wir sind dabei.</li>
+      <li>Du bestimmst das Programm. Sofa, Sauna, Sandstrand oder Sause.</li>
+      <li>Telefone bleiben aus. Ausnahmen: Taxi, Pizza, Notarzt.</li>
+      <li>Am Ende des Tages: ein Bier, ein Blick, ein „war gut, oder?" — und fertig.</li>
+    </ul>
+
+    <p class="gc-message">» Freundschaft ist das Schönste, was man verschenken kann. «</p>
+
+    <div class="gc-terms">
+      <div class="gc-term">
+        <div class="gc-term-label">Einlösbar</div>
+        <div class="gc-term-value">nach Absprache</div>
+      </div>
+      <div class="gc-term">
+        <div class="gc-term-label">Gültig</div>
+        <div class="gc-term-value">ab sofort · unbegrenzt</div>
+      </div>
+      <div class="gc-term">
+        <div class="gc-term-label">Ausgestellt</div>
+        <div class="gc-term-value">für Ulle</div>
+      </div>
+    </div>
+
+    <div class="gc-footer">Persönlicher Gutschein · Nicht übertragbar</div>
+  </div>
+</section>
+
+<!-- ============ SIGN OFF ============ -->
+<section class="signoff">
+  <div class="reveal">
+    <h2>
+      Auf die nächsten vierzig Jahre, <em>Ulle</em>.<br />
+      Wir bleiben dabei. Wie immer.
+    </h2>
+    <div class="sig">Deine Jungs</div>
+  </div>
+</section>
+
+<footer>
+  Mit Liebe gemacht · April 2026 · Für niemanden außer Ulle
+</footer>
+
+<script>
+  // Reveal on scroll
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.15, rootMargin: '0px 0px -50px 0px' });
+
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  // Subtle parallax on hero
+  const hero = document.querySelector('.hero-content');
+  window.addEventListener('scroll', () => {
+    const y = window.scrollY;
+    if (y < window.innerHeight && hero) {
+      hero.style.transform = `translateY(${y * 0.2}px)`;
+      hero.style.opacity = 1 - (y / window.innerHeight) * 1.2;
+    }
+  });
+</script>
+
+</body>
+</html>
